@@ -313,6 +313,18 @@ public class KNNPlugin extends Plugin
         );
     }
 
+    /**
+     * Register action and handler so that transportClient can find proxy for action
+     */
+    @Override
+    public void loadExtensions(ExtensionLoader loader) {
+        // The GrpcPlugin will call loader.loadExtensions(QueryBuilderProtoConverter.class)
+        // to discover all QueryBuilderProtoConverter implementations.
+        // Our KNNQueryBuilderProtoConverter will be discovered through the service provider
+        // configuration file at:
+        // META-INF/services/org.opensearch.plugin.transport.grpc.proto.request.search.query.QueryBuilderProtoConverter
+    }
+
     @Override
     public Optional<EngineFactory> getEngineFactory(IndexSettings indexSettings) {
         return Optional.empty();
